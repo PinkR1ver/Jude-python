@@ -1,3 +1,4 @@
+from turtle import title
 import Facade.Devices.cpu as cpu
 import os
 import time
@@ -6,7 +7,7 @@ import emoji
 from Facade.Devices.RAM import RAM
 from Facade.Devices.OS import OS
 from rich.console import Console
-from rich.theme import Theme
+from uniplot import plot
 
 console = Console()
 
@@ -28,6 +29,8 @@ class Facade:
             self.check_OS()
         elif mode[1] == "-rts":
             self.check_rts()
+        elif mode[1] == "-cpulive":
+            self.check_cpu_live()
 
 
     def help(self):
@@ -102,6 +105,29 @@ class Facade:
             print()
             for advice in advices:
                 console.print(advice, style="bold plum4")
+
+    def check_cpu_live(self):
+        clear = lambda: os.system('clear')
+        clear()
+        cpuinfo = cpu.CPU()
+        freq_list = []
+        flag = 1
+        count = 0
+        while True:
+            if flag:
+                freq_list.append(cpuinfo.get_MHz_dynamic())
+            if len(freq_list) > 500:
+                flag = 0
+                freq_list[count] = cpuinfo.get_MHz_dynamic()
+                count = count + 1
+                if count == 500:
+                    clear()
+                    count = 0
+                    plot(freq_list, title="CPU Freq", lines=True, y_max =3500, y_min=1000)
+                    time.sleep(0.2)
+
+            
+
 
 
 if __name__ == "__main__":
