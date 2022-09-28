@@ -31,6 +31,8 @@ class Facade:
             self.check_rts()
         elif mode[1] == "-cpulive":
             self.check_cpu_live()
+        else:
+            console.print("Useless command, pls see in [Jude -h]", style="bold yellow")
 
 
     def help(self):
