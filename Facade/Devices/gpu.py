@@ -4,7 +4,8 @@ import psutil
 import platform
 from datetime import datetime
 import Facade.Devices.Hardware as Hardware
-class CPU(Hardware.Hardware):
+
+class GPU(Hardware.Hardware):
     def __init__(self, output_type="dynamic"):
         super().__init__(output_type)
     
