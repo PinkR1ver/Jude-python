@@ -4,6 +4,10 @@ import psutil
 import platform
 from datetime import datetime
 import Facade.Devices.Hardware as Hardware
+from rich.console import Console
+
+console = Console()
+
 class CPU(Hardware.Hardware):
     def __init__(self, output_type="dynamic"):
         super().__init__(output_type)
@@ -38,15 +42,15 @@ class CPU(Hardware.Hardware):
     def get_static(self):
         core = self.get_core()
         freq = self.get_MHz_static();
-        print(f"Physical cores: {core[0]}")
-        print(f"Total cores: {core[1]}")
-        print(f"Max Frequency: {freq[0]:.2f}Mhz")
-        print(f"Min Frequency: {freq[1]:.2f}Mhz")
+        console.print(f"Physical cores: {core[0]}", style="bold plum4")
+        console.print(f"Total cores: {core[1]}", style="bold plum4")
+        console.print(f"Max Frequency: {freq[0]:.2f}Mhz", style="bold plum4")
+        console.print(f"Min Frequency: {freq[1]:.2f}Mhz", style="bold plum4")
 
     def get_dynamic(self):
-        print(f"dynamic Frequency: {self.get_MHz_dynamic():.2f}Mhz")
-        print(f"CPU Usage: {self.get_usage_dynamic()}%")
-        print(f"dynamic CPU Temp: {self.get_cpu_temp()}°C")
+        console.print(f"dynamic Frequency: {self.get_MHz_dynamic():.2f}Mhz", style="bold plum4")
+        console.print(f"CPU Usage: {self.get_usage_dynamic()}%", style="bold plum4")
+        console.print(f"dynamic CPU Temp: {self.get_cpu_temp()}°C", style="bold plum4")
 
 if __name__ == "__main__":
     cpuinfo = CPU()
